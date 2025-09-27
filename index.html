@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 <title>Helldivers 2 - Estratagemas</title>
 <style>
   body{margin:0;font-family:Arial, sans-serif;background:#111;color:#fff;}
@@ -195,6 +195,13 @@
       display: none;
     }
   }
+  
+  /* 👇 NUEVO: evita scroll lateral/zoom tipo app */
+  html, body {
+    overscroll-behavior: none;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
 </style>
 </head>
 <body>
@@ -271,6 +278,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
       else menu.classList.add('hide');
     }
   });
+
+  // 👇 NUEVO: bloquear zoom por doble-tap
+  document.addEventListener('touchend', e=>{
+    if(e.touches.length > 1) e.preventDefault();
+  }, {passive:false});
+
+  // 👇 NUEVO: evitar desplazamiento vertical/horizontal con dos dedos
+  document.addEventListener('gesturestart', e=> e.preventDefault());
 
   // funcion escoger idioma
   function chooseLang(lang){
